@@ -134,15 +134,7 @@ class ViewController: UIViewController {
         tableView.reloadData()
     }
     
-//    override func setEditing(_ editing: Bool, animated: Bool) {
-//        super.setEditing(editing, animated: animated)
-//        if editing {
-//            self.tableView.setEditing(true, animated: true)
-//        }
-//        else {
-//            self.tableView.setEditing(false, animated: true)
-//        }
-//    }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailView" {

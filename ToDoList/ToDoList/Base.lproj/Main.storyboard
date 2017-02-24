@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -96,22 +97,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SJw-4f-aDO">
-                                <rect key="frame" x="30" y="89" width="345" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Notes...." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SJw-4f-aDO">
+                                <rect key="frame" x="40" y="139" width="295" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="Uxv-st-FF1"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcI-lI-WYu">
-                                <rect key="frame" x="315" y="561" width="42" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creat At:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcI-lI-WYu">
+                                <rect key="frame" x="25" y="414" width="350" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="6aU-xU-GwY"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0d-DZ-LkP">
+                                <rect key="frame" x="41" y="89" width="318" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="166-E2-eDA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="V0d-DZ-LkP" firstAttribute="leading" secondItem="uin-Ar-nA6" secondAttribute="leadingMargin" constant="25" id="0yP-3p-RqA"/>
+                            <constraint firstItem="V0d-DZ-LkP" firstAttribute="top" secondItem="62d-at-PSN" secondAttribute="bottom" constant="25" id="JR4-F5-av3"/>
+                            <constraint firstItem="YcI-lI-WYu" firstAttribute="leading" secondItem="uin-Ar-nA6" secondAttribute="leading" constant="25" id="Lgd-0o-Pvc"/>
+                            <constraint firstItem="YcI-lI-WYu" firstAttribute="top" secondItem="SJw-4f-aDO" secondAttribute="bottom" constant="25" id="M0n-th-fgM"/>
+                            <constraint firstAttribute="trailing" secondItem="SJw-4f-aDO" secondAttribute="trailing" constant="40" id="bm6-K2-Tex"/>
+                            <constraint firstAttribute="trailing" secondItem="YcI-lI-WYu" secondAttribute="trailing" id="kUl-ab-a9R"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="V0d-DZ-LkP" secondAttribute="trailing" id="wQg-Fo-Qna"/>
+                            <constraint firstItem="SJw-4f-aDO" firstAttribute="top" secondItem="V0d-DZ-LkP" secondAttribute="bottom" constant="10" id="xd5-xi-EEq"/>
+                            <constraint firstItem="SJw-4f-aDO" firstAttribute="leading" secondItem="uin-Ar-nA6" secondAttribute="leading" constant="40" id="zZj-dT-0wI"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>

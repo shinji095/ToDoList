@@ -109,10 +109,10 @@
 		8448693D1E5ECF700022420A /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				844869791E5EECFA0022420A /* ListEntity+CoreDataClass.swift */,
-				8448697A1E5EECFA0022420A /* ListEntity+CoreDataProperties.swift */,
 				8448693E1E5ECF700022420A /* AppDelegate.swift */,
 				844869401E5ECF700022420A /* ViewController.swift */,
+				844869791E5EECFA0022420A /* ListEntity+CoreDataClass.swift */,
+				8448697A1E5EECFA0022420A /* ListEntity+CoreDataProperties.swift */,
 				844869421E5ECF700022420A /* Main.storyboard */,
 				844869731E5ED9E90022420A /* NoteCell.swift */,
 				844869711E5ED2ED0022420A /* DetailViewController.swift */,
@@ -536,6 +536,7 @@
 				844869681E5ECF710022420A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		844869691E5ECF710022420A /* Build configuration list for PBXNativeTarget "ToDoListTests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +545,7 @@
 				8448696B1E5ECF710022420A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8448696C1E5ECF710022420A /* Build configuration list for PBXNativeTarget "ToDoListUITests" */ = {
 			isa = XCConfigurationList;
@@ -552,6 +554,7 @@
 				8448696E1E5ECF710022420A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
