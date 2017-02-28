@@ -11,23 +11,26 @@ import UIKit
 class DetailViewController: UIViewController {
     
     var contentText: String?
+    var titleText: String?
     var dateCreated: NSDate?
+    
     @IBOutlet weak var contentTextFeild: UITextField!
+    
     @IBOutlet weak var createdAtText: UILabel!
     
+    @IBOutlet weak var titleLabel: UILabel!
     
-    @IBAction func changeValueTxf(_ sender: Any) {
-        
-    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        if contentText != nil && dateCreated != nil {
+        if contentText != nil && dateCreated != nil && titleText != nil {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy"
             let stringDate = dateFormatter.string(from: dateCreated as! Date)
-            self.contentTextFeild.text = contentText!
+            self.titleLabel.text = titleText
+            self.contentTextFeild.text = contentText
             self.createdAtText.text = "Created At: \(stringDate)"
         }
         else {

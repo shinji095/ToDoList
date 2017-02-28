@@ -18,8 +18,9 @@
 		844869721E5ED2ED0022420A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844869711E5ED2ED0022420A /* DetailViewController.swift */; };
 		844869741E5ED9E90022420A /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844869731E5ED9E90022420A /* NoteCell.swift */; };
 		844869781E5EE0F50022420A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844869771E5EE0F50022420A /* CoreDataStack.swift */; };
-		8448697B1E5EECFA0022420A /* ListEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844869791E5EECFA0022420A /* ListEntity+CoreDataClass.swift */; };
-		8448697C1E5EECFA0022420A /* ListEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8448697A1E5EECFA0022420A /* ListEntity+CoreDataProperties.swift */; };
+		847E0B351E60447C00A8992B /* ListEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E0B331E60447C00A8992B /* ListEntity+CoreDataClass.swift */; };
+		847E0B361E60447C00A8992B /* ListEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E0B341E60447C00A8992B /* ListEntity+CoreDataProperties.swift */; };
+		847E0B381E60456E00A8992B /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E0B371E60456E00A8992B /* AddViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,8 +58,9 @@
 		844869711E5ED2ED0022420A /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		844869731E5ED9E90022420A /* NoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		844869771E5EE0F50022420A /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		844869791E5EECFA0022420A /* ListEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ListEntity+CoreDataClass.swift"; path = "../ListEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		8448697A1E5EECFA0022420A /* ListEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ListEntity+CoreDataProperties.swift"; path = "../ListEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847E0B331E60447C00A8992B /* ListEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ListEntity+CoreDataClass.swift"; path = "../ListEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		847E0B341E60447C00A8992B /* ListEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ListEntity+CoreDataProperties.swift"; path = "../ListEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		847E0B371E60456E00A8992B /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,14 +111,15 @@
 		8448693D1E5ECF700022420A /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				847E0B331E60447C00A8992B /* ListEntity+CoreDataClass.swift */,
+				847E0B341E60447C00A8992B /* ListEntity+CoreDataProperties.swift */,
 				8448693E1E5ECF700022420A /* AppDelegate.swift */,
-				844869401E5ECF700022420A /* ViewController.swift */,
-				844869791E5EECFA0022420A /* ListEntity+CoreDataClass.swift */,
-				8448697A1E5EECFA0022420A /* ListEntity+CoreDataProperties.swift */,
-				844869421E5ECF700022420A /* Main.storyboard */,
-				844869731E5ED9E90022420A /* NoteCell.swift */,
-				844869711E5ED2ED0022420A /* DetailViewController.swift */,
 				844869771E5EE0F50022420A /* CoreDataStack.swift */,
+				844869401E5ECF700022420A /* ViewController.swift */,
+				847E0B371E60456E00A8992B /* AddViewController.swift */,
+				844869711E5ED2ED0022420A /* DetailViewController.swift */,
+				844869731E5ED9E90022420A /* NoteCell.swift */,
+				844869421E5ECF700022420A /* Main.storyboard */,
 				844869481E5ECF700022420A /* Assets.xcassets */,
 				8448694A1E5ECF700022420A /* LaunchScreen.storyboard */,
 				8448694D1E5ECF700022420A /* Info.plist */,
@@ -281,13 +284,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				844869781E5EE0F50022420A /* CoreDataStack.swift in Sources */,
+				847E0B351E60447C00A8992B /* ListEntity+CoreDataClass.swift in Sources */,
+				847E0B381E60456E00A8992B /* AddViewController.swift in Sources */,
+				847E0B361E60447C00A8992B /* ListEntity+CoreDataProperties.swift in Sources */,
 				844869411E5ECF700022420A /* ViewController.swift in Sources */,
 				844869471E5ECF700022420A /* ToDoList.xcdatamodeld in Sources */,
-				8448697C1E5EECFA0022420A /* ListEntity+CoreDataProperties.swift in Sources */,
 				844869741E5ED9E90022420A /* NoteCell.swift in Sources */,
 				844869721E5ED2ED0022420A /* DetailViewController.swift in Sources */,
 				8448693F1E5ECF700022420A /* AppDelegate.swift in Sources */,
-				8448697B1E5EECFA0022420A /* ListEntity+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

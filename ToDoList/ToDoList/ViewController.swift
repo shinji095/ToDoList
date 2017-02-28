@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     var lists: [ListEntity] = []
     @IBOutlet weak var tableView: UITableView!
     var appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    var titleAddView: String?
+    var contentAddView: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +29,7 @@ class ViewController: UIViewController {
             self.createData()
             UserDefaults.standard.set(false, forKey: "firstStart")
         }
-        
         self.fetchData()
-        
-//        self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,42 +37,32 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func getContext()-> NSManagedObjectContext{
+        return self.appDelegate.coreDataStack.managedObjectContext
+    }
+    
     func createData() {
         
         let listEntity: NSEntityDescription? = NSEntityDescription.entity(forEntityName: "ListEntity", in: self.appDelegate.coreDataStack.managedObjectContext)
         
         if listEntity != nil {
-//            let note1 = NSManagedObject(entity: listEntity!, insertInto: self.appDelegate.coreDataStack.managedObjectContext)
-//            note1.setValue("Eat", forKey: "name")
-//            let note2 = NSManagedObject(entity: listEntity!, insertInto: self.appDelegate.coreDataStack.managedObjectContext)
-//            note2.setValue("Play", forKey: "name")
-//            let note3 = NSManagedObject(entity: listEntity!, insertInto: self.appDelegate.coreDataStack.managedObjectContext)
-//            note3.setValue("Code", forKey: "name")
-//            let note4 = NSManagedObject(entity: listEntity!, insertInto: self.appDelegate.coreDataStack.managedObjectContext)
-//            note4.setValue("Sleep", forKey: "name")
             let note1: ListEntity = ListEntity(entity: listEntity!, insertInto: self.appDelegate.coreDataStack.managedObjectContext)
-            note1.name = "Eat"
+            note1.title = "Eat"
+            note1.content = "Lunch"
             note1.createdAt = NSDate()
             
             let note2: ListEntity = ListEntity(entity: listEntity!, insertInto: self.appDelegate.coreDataStack.managedObjectContext)
-            note2.name = "Code"
+            note2.title = "Code"
+            note2.content = "Code swift 3 ios"
             note2.createdAt = NSDate()
             
             let note3: ListEntity = ListEntity(entity: listEntity!, insertInto: self.appDelegate.coreDataStack.managedObjectContext)
-            note3.name = "Sleep"
+            note3.title = "Sleep"
+            note3.content = "Sleppp..........."
             note3.createdAt = NSDate()
             
-            
             self.appDelegate.coreDataStack.saveContext()
-            
         }
-//        let note1: List = List(name: "Code")
-//        let note2: List = List(name: "Eat")
-//        let note3: List = List(name: "Sleep")
-//
-//        lists.append(note1)
-//        lists.append(note2)
-//        lists.append(note3)
     }
     
     func fetchData() {
@@ -93,66 +80,36 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func addData(_ sender: Any) {
-        
-        let alert = UIAlertController(title: "New Note",message: "Add a new note",preferredStyle: .alert)
-        
-        let saveAction = UIAlertAction(title: "Save",style: .default,handler: { (action:UIAlertAction) -> Void in
-            let textField = alert.textFields!.first
-            self.saveName(name: textField!.text!)
-            self.tableView.reloadData()
-        })
-        
-        let cancelAction = UIAlertAction(title: "Cancel",style: .default) { (action: UIAlertAction) -> Void in
-        }
-        
-        alert.addTextField {
-            (textField: UITextField) -> Void in
-        }
-        
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-        
-        present(alert,animated: true,completion: nil)
-    }
-    
-    func getContext()-> NSManagedObjectContext{
-       return self.appDelegate.coreDataStack.managedObjectContext
-    }
-    
-    //Save name
-    func saveName(name: String) {
+    func addData() {
         let listEntity: NSEntityDescription? = NSEntityDescription.entity(forEntityName: "ListEntity", in: getContext())
         if listEntity != nil {
-            let note1: ListEntity = ListEntity(entity: listEntity!, insertInto: getContext())
-            note1.name = name
+            let note1 : ListEntity = ListEntity(entity: listEntity!, insertInto: getContext())
+            note1.content = contentAddView
+            note1.title = titleAddView
             note1.createdAt = NSDate()
             self.lists.append(note1)
-            self.tableView.insertRows(at: [IndexPath(row: self.lists.count-1 ,section: 0)], with: .automatic)
+            print(lists.count)
             self.appDelegate.coreDataStack.saveContext()
         }
-        tableView.reloadData()
     }
-    
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailView" {
             let detailVC: DetailViewController? = segue.destination as? DetailViewController
             let cell: NoteCell? = sender as? NoteCell
-            
             if cell != nil && detailVC != nil{
-                detailVC!.contentText = cell!.noteLabel!.text
+                detailVC?.contentText = cell?.content
+                detailVC!.titleText = cell!.noteLabel!.text
                 detailVC?.dateCreated = cell?.dateCreated
             }
         }
     }
-
 }
 
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(lists.count)
         return lists.count
     }
     
@@ -163,9 +120,19 @@ extension ViewController: UITableViewDataSource {
             cell = NoteCell(style: .default, reuseIdentifier: "defaultCell")
         }
         let currentNote: ListEntity = lists[indexPath.row]
-        cell?.noteLabel.text = currentNote.name
+        cell?.content = currentNote.content
+        cell?.noteLabel.text = currentNote.title
         cell?.dateCreated = currentNote.createdAt
+        cell?.dateLabel.text = revertDatetoString(date: currentNote.createdAt!)
         return cell!
+    }
+    
+    func revertDatetoString(date: NSDate) -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let stringDate = dateFormatter.string(from: date as Date)
+        return stringDate
     }
     
     

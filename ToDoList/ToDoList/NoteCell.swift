@@ -11,6 +11,11 @@ import UIKit
 class NoteCell: UITableViewCell {
 
     @IBOutlet weak var noteLabel: UILabel!
+    
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    var content: String?
+    
     var dateCreated: NSDate?
     override func awakeFromNib() {
         super.awakeFromNib()
