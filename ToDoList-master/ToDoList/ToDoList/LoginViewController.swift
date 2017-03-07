@@ -33,31 +33,33 @@ class LoginViewController: UIViewController {
             "password":textPassword!
         ]
         
-            Alamofire.request(urlString, method: .post, parameters: postString).responseJSON {
+        Alamofire.request(urlString, method: .post, parameters: postString).responseJSON {
             response in
-                
-                if response.response!.statusCode == 200 {
-                    do {
-                        let listId = try JSONSerialization.jsonObject(with: response.data!, options: .mutableContainers) as![String:AnyObject]
-                        let id = listId["userId"] as? String
-                        self.VC.userId = id!
-                        self.idUser = id!
-                    }
-                    catch {
-                        print(error)
-                    }
+            if response.response?.statusCode == 200 {
+                if let data: AnyObject = response.result.value as AnyObject? {
+                    let id = data["userId"] as? String
+                    self.VC.userId = id!
+                    self.idUser = id!
                     self.callAlamofire(url: self.getUrl)
                     self.performSegue(withIdentifier: "gotoTableView", sender: self)
                 }
-                else {
-                    print("Login Failed")
-                    let alert = UIAlertController(title: "Failed", message: "Email or password not correct", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "Back", style: UIAlertActionStyle.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+            }
+            else{
+                let alert = UIAlertController(title: "Alert", message: "Email or password not correct", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Back", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
     
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "gotoTableView" {
+//            let VC: ViewController? = segue.destination as? ViewController
+//            if VC != nil{
+//                VC?.userId = idUser
+//            }
+//        }
+//    }
     
     // MARK: - Networking
     func callAlamofire(url: String) {

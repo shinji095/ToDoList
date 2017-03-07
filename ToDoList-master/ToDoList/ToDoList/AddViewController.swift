@@ -16,7 +16,7 @@ class AddViewController: UIViewController {
     
     @IBOutlet weak var contentTextField: UITextField!
     
-    let VC: ViewController? = ViewController()
+    var VC: ViewController? = ViewController()
     
     var postUrl = "http://124.158.7.238:3010/api/notes"
     
@@ -51,6 +51,7 @@ class AddViewController: UIViewController {
             "createdAt": VC?.revertDatetoString(date: NSDate())
         ]
         print(paramsNote)
+        
         Alamofire.request(postUrl, method: .post, parameters: paramsNote).responseJSON {
             response in
             print(response.description)

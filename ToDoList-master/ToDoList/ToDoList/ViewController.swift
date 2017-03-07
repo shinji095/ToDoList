@@ -26,6 +26,7 @@ class ViewController: UIViewController {
         self.fetchData()
         self.tableView.contentInset = UIEdgeInsets(top: -64.0, left: 0.0, bottom: 0.0, right: 0.0)
          self.tableView.reloadData()
+        print(userId)
         
 //        Save user data
 //        let firstStart: Bool? = UserDefaults.standard.object(forKey: "firstStart") as? Bool
@@ -39,12 +40,14 @@ class ViewController: UIViewController {
     //Sign Out
     @IBAction func signOut(_ sender: Any) {
         self.performSegue(withIdentifier: "signOut", sender: self)
-        for i in 0..<lists.count {
-            let note: ListEntity = self.lists[i]
-            self.lists.remove(at: i)
-            self.tableView.deleteRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
-            self.appDelegate.coreDataStack.managedObjectContext.delete(note)
-            self.appDelegate.coreDataStack.saveContext()
+        if self.lists.count > 0{
+            for i in 0..<lists.count {
+                let note: ListEntity = self.lists[i]
+                self.lists.remove(at: i)
+                self.tableView.deleteRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
+                self.appDelegate.coreDataStack.managedObjectContext.delete(note)
+                self.appDelegate.coreDataStack.saveContext()
+            }
         }
     }
     
