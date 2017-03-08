@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+import Alamofire
 
 class AddViewController: UIViewController {
 
@@ -14,19 +16,53 @@ class AddViewController: UIViewController {
     
     @IBOutlet weak var contentTextField: UITextField!
     
+    var VC: ViewController? = ViewController()
+    
+    var userId: String?
+    
+    var postUrl = "http://124.158.7.238:3010/api/notes"
+    
     @IBAction func addData(_ sender: Any) {
-        let VC: ViewController? = ViewController()
-        if VC != nil {
-            VC?.contentAddView = contentTextField.text
-            VC?.titleAddView = titleTextFeild.text
-            VC?.addData()
+            if VC != nil {
+            addData()
             print("Added")
         }
-        
     }
+    
+    func addData() {
+        let listEntity: NSEntityDescription? = NSEntityDescription.entity(forEntityName: "ListEntity", in: (VC?.getContext())!)
+        if listEntity != nil {
+            let note1 : ListEntity = ListEntity(entity: listEntity!, insertInto: VC!.getContext())
+            note1.content = contentTextField.text
+            note1.title = titleTextFeild.text
+            note1.createdAt = NSDate()
+            VC?.lists.append(note1)
+            VC?.appDelegate.coreDataStack.saveContext()
+        }
+        postNote(url: postUrl)
+    }
+    
+    func postNote(url: String) {
+            let title = titleTextFeild.text
+            let content = contentTextField.text
+        
+        let paramsNote = [
+            "title":title!,
+            "content":content!,
+            "user_id": userId!,
+            "createdAt": VC!.convertDatetoString(date: NSDate())
+        ] as [String : Any]
+        print(paramsNote)
+        
+        Alamofire.request(postUrl, method: .post, parameters: paramsNote).responseJSON {
+            response in
+            print(response.description)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
 

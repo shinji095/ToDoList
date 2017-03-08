@@ -17,6 +17,10 @@ class NoteCell: UITableViewCell {
     var content: String?
     
     var dateCreated: NSDate?
+    
+    var userId: String?
+    var noteId: String?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

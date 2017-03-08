@@ -19,5 +19,7 @@ extension ListEntity {
     @NSManaged public var createdAt: NSDate?
     @NSManaged public var title: String?
     @NSManaged public var content: String?
+    @NSManaged public var id: String?
+    @NSManaged public var userId: String?
 
 }

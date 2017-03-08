@@ -11,5 +11,12 @@ import CoreData
 
 @objc(ListEntity)
 public class ListEntity: NSManagedObject {
-
+    
+    class func find(byId id: String) -> ListEntity?{
+        
+        
+        return nil
+    }
+    
+//    class func new(w)
 }

@@ -8,61 +8,48 @@
 
 import UIKit
 import CoreData
+import Alamofire
 
 class ViewController: UIViewController {
     
     var lists: [ListEntity] = []
+    var listData: [NSDictionary] = [NSDictionary]()
+    var userId: String?
     @IBOutlet weak var tableView: UITableView!
     var appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-    var titleAddView: String?
-    var contentAddView: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         self.tableView.dataSource = self
-        self.tableView.contentInset = UIEdgeInsets(top: -64.0, left: 0.0, bottom: 0.0, right: 0.0)
-        
-        //Save user data
-        let firstStart: Bool? = UserDefaults.standard.object(forKey: "firstStart") as? Bool
-        if firstStart == nil {
-            self.createData()
-            UserDefaults.standard.set(false, forKey: "firstStart")
-        }
         self.fetchData()
+        self.tableView.contentInset = UIEdgeInsets(top: -64.0, left: 0.0, bottom: 0.0, right: 0.0)
+        self.tableView.reloadData()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    //Sign Out
+    @IBAction func signOut(_ sender: Any) {
+        
+        if self.lists.count > 0{
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ListEntity")
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+    
+            do {
+                try appDelegate.coreDataStack.managedObjectContext.execute(batchDeleteRequest)
+            }
+            catch {
+                // Error Handling
+            }
+            lists.removeAll()
+        }
+        userId = ""
+        self.tableView.reloadData()
+        self.performSegue(withIdentifier: "signOut", sender: self)
     }
+    
+     // MARK: - Manage CoreData
     
     func getContext()-> NSManagedObjectContext{
         return self.appDelegate.coreDataStack.managedObjectContext
-    }
-    
-    func createData() {
-        
-        let listEntity: NSEntityDescription? = NSEntityDescription.entity(forEntityName: "ListEntity", in: self.appDelegate.coreDataStack.managedObjectContext)
-        
-        if listEntity != nil {
-            let note1: ListEntity = ListEntity(entity: listEntity!, insertInto: self.appDelegate.coreDataStack.managedObjectContext)
-            note1.title = "Eat"
-            note1.content = "Lunch"
-            note1.createdAt = NSDate()
-            
-            let note2: ListEntity = ListEntity(entity: listEntity!, insertInto: self.appDelegate.coreDataStack.managedObjectContext)
-            note2.title = "Code"
-            note2.content = "Code swift 3 ios"
-            note2.createdAt = NSDate()
-            
-            let note3: ListEntity = ListEntity(entity: listEntity!, insertInto: self.appDelegate.coreDataStack.managedObjectContext)
-            note3.title = "Sleep"
-            note3.content = "Sleppp..........."
-            note3.createdAt = NSDate()
-            
-            self.appDelegate.coreDataStack.saveContext()
-        }
     }
     
     func fetchData() {
@@ -80,19 +67,6 @@ class ViewController: UIViewController {
         }
     }
     
-    func addData() {
-        let listEntity: NSEntityDescription? = NSEntityDescription.entity(forEntityName: "ListEntity", in: getContext())
-        if listEntity != nil {
-            let note1 : ListEntity = ListEntity(entity: listEntity!, insertInto: getContext())
-            note1.content = contentAddView
-            note1.title = titleAddView
-            note1.createdAt = NSDate()
-            self.lists.append(note1)
-            print(lists.count)
-            self.appDelegate.coreDataStack.saveContext()
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailView" {
             let detailVC: DetailViewController? = segue.destination as? DetailViewController
@@ -101,15 +75,24 @@ class ViewController: UIViewController {
                 detailVC?.contentText = cell?.content
                 detailVC!.titleText = cell!.noteLabel!.text
                 detailVC?.dateCreated = cell?.dateCreated
+                detailVC?.userId = cell?.userId
+                detailVC?.noteId = cell?.noteId
+                
+            }
+        }
+        if segue.identifier == "toAddView" {
+            let addVC: AddViewController? = segue.destination as? AddViewController
+            if addVC != nil {
+                addVC?.userId = self.userId
             }
         }
     }
 }
 
+// MARK: - Extension ViewController
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(lists.count)
         return lists.count
     }
     
@@ -122,12 +105,14 @@ extension ViewController: UITableViewDataSource {
         let currentNote: ListEntity = lists[indexPath.row]
         cell?.content = currentNote.content
         cell?.noteLabel.text = currentNote.title
+        cell?.dateLabel.text = convertDatetoString(date: currentNote.createdAt!)
         cell?.dateCreated = currentNote.createdAt
-        cell?.dateLabel.text = revertDatetoString(date: currentNote.createdAt!)
+        cell?.userId = currentNote.userId
+        cell?.noteId = currentNote.id
         return cell!
     }
     
-    func revertDatetoString(date: NSDate) -> String {
+    func convertDatetoString(date: NSDate) -> String {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
@@ -135,6 +120,12 @@ extension ViewController: UITableViewDataSource {
         return stringDate
     }
     
+    func convertStringtoDate(str: String) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        return (dateFormatter.date(from: str))!
+
+    }
     
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -158,3 +149,6 @@ extension ViewController: UITableViewDelegate {
         return 60.0
     }
 }
+
+
+
